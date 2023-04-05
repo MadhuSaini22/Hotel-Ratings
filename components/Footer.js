@@ -84,7 +84,7 @@ export default function Footer() {
             <div key={item.name} className="pb-6">
               <a
                 href={item.href}
-                className="text-sm leading-6 text-white hover:text-gray-900"
+                className="text-sm leading-6 text-white hover:text-gray-400"
               >
                 {item.name}
               </a>
@@ -104,7 +104,7 @@ export default function Footer() {
           ))}
         </div>
         <p className="mt-10 text-center text-xs leading-5 text-gray-300">
-          &copy; 2020 Your Company, Inc. All rights reserved.
+          &copy; 2020, Inc. All rights reserved.
         </p>
       </div>
     </footer>

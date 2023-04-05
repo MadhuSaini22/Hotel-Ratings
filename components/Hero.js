@@ -10,7 +10,7 @@ export default function Hero() {
             Explore the most highly-rated hotels for your next stay
           </p>
           <Link
-            href="/contact-us"
+            href="/allData"
             className="bg-yellow-400 transition duration-300 hover:text-white text-sm md:text-lg py-4 sm:py-[18px] px-5 sm:px-10 hover:bg-warning-500 mb-10 text-black rounded-full"
           >
             Explore more

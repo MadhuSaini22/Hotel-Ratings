@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ResultCard } from "./ResultCard";
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -11,6 +12,27 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const timeout = useRef();
+  const [results, setResults] = useState([]);
+  const [menu, setMenu] = useState(false);
+  const onChange = (e) => {
+    e.preventDefault();
+    //Clear the previous timeout.
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
+      fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US&page=1&include_adult=false&query=${e.target.value}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.errors) {
+            setResults(data.results.slice(0, 8));
+          } else {
+            setResults([]);
+          }
+        });
+    }, 400);
+  };
 
   return (
     <header className="bg-white container">
@@ -28,6 +50,7 @@ export default function Header() {
             />
           </a>
         </div>
+
         {/* Search box */}
         <div className="flex-1 lg: mx-4 relative">
           <div className="">
@@ -35,6 +58,7 @@ export default function Header() {
               type="text"
               className="text-sm focus:border-yellow-400 focus:border-2 px-2 placeholder:text-slate-500 text-black flex-1 w-full rounded h-8 outline-none border bg-right sm:block lg:block md:block"
               placeholder="Search Hotels"
+              onChange={onChange}
             />
 
             <svg
@@ -52,7 +76,24 @@ export default function Header() {
               />
             </svg>
           </div>
+          {/* Search Results */}
+          <div className="z-10 m-auto absolute ">
+            <div className="bg-dark-lightBlack">
+              {results
+                ? results.length > 0 && (
+                    <div className="">
+                      {results.map((movie) => (
+                        <div key={movie.id}>
+                          <ResultCard movie={movie} />
+                        </div>
+                      ))}
+                    </div>
+                  )
+                : ""}
+            </div>
+          </div>
         </div>
+
         <div className="flex lg:hidden">
           <button
             type="button"
