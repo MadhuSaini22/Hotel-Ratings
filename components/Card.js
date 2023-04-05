@@ -1,53 +1,106 @@
-import React, { useEffect, useState } from "react";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import Link from "next/link";
-import Image from "next/image";
+import React from "react";
+
 
 const Card = ({ hotel }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  }, []);
   // This is component for rendering individual card
+  const value = hotel.ratings;
+  const maxRating = 5;
+  const rating = Math.max(0, Math.min(maxRating, value));
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+  const emptyStars = maxRating - fullStars - (hasHalfStar ? 1 : 0);
+
   return (
-    <>
-      {isLoading ? (
-        <div className="">
-          <SkeletonTheme color="#202020" highlightColor="#444">
-            <Skeleton height={300} duration={4} />
-          </SkeletonTheme>
-        </div>
-      ) : (
-        <Link
-          href={`/hotelDetail/${hotel.id}`}
-          className="flex justify-center items-center"
-        >
-          <div className="!inline-block transition duration-300 ease-in-out relative rounded overflow-hidden cursor-pointer z-0  ">
-            <Image
-              className=" "
-              src={`${hotel.image}`}
-              alt="img"
-              width="188"
-              height="282"
-            />
-            <div className=" absolute p-3 bottom-0 h-72 flex flex-col w-10/12 justify-end opacity-0 hover:opacity-100">
-              <div className=" text-base font-black mb-1.5">{hotel.name}</div>
-              <div className=" text-xs m-1">
-                <span className="float-right">
-                  {hotel.ratings} <i className="fas fa-star"></i>{" "}
-                </span>
-              </div>
-              <div className="truncate">
-                {hotel.description.slice(0, 118) + "..."}
-              </div>
-            </div>
+    <div>
+      {/* <Link href={`/hotelDetail/${hotel.id}`}> */}
+      <div className="bg-white w-[400px] shadow-lg rounded-lg overflow-hidden mx-auto max-w-[500px]">
+        <img
+          className="w-full h-56 object-cover object-center"
+          src="/assets/room.jpg"
+          alt="hotel"
+        />
+        <div className="p-4">
+          <div className="flex">
+            {[...Array(fullStars)].map((_, index) => (
+              <svg
+                key={index}
+                className="h-5 w-5 text-yellow-400"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                fill="yellow"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                />
+              </svg>
+
+            ))}
+            {hasHalfStar && (
+              <svg
+                className="h-5 w-5 text-yellow-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
+                <defs>
+                  <mask id="half-mask">
+                    <rect x="0" y="0" width="50%" height="100%" fill="white" />
+                  </mask>
+                </defs>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                  fill="yellow"
+                  mask="url(#half-mask)"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  fill="none"
+                />
+              </svg>
+            )}
+            {[...Array(emptyStars)].map((_, index) => (
+              <svg
+                key={index}
+                className="h-5 w-5 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                />
+              </svg>
+
+            ))}
           </div>
-        </Link>
-      )}
-    </>
+          <div className="text-gray-600 text-sm mb-2">{hotel.description}</div>
+          <a
+            href={`${hotel.url}`}
+            target="_blank"
+            className="text-gray-600 text-sm"
+          >
+            <div>Have a glimpse</div>
+          </a>
+        </div>
+      </div>
+      {/* </Link> */}
+    </div>
   );
 };
 export default Card;
