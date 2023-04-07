@@ -3,19 +3,20 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ResultCard } from "./ResultCard";
 import Link from "next/link";
+import { hotelData } from "@/constants";
 
 const navigation = [
-  { name: "Product", href: "#" },
+  { name: "Hotels", href: "/allData" },
   { name: "Features", href: "#" },
+  { name: "Favourite", href: "/favourite" },
   { name: "Contact", href: "/contact" },
-  { name: "Company", href: "#" },
 ];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timeout = useRef();
   const [results, setResults] = useState([]);
-  const [menu, setMenu] = useState(false);
+  
   const onChange = (e) => {
     e.preventDefault();
     //Clear the previous timeout.
@@ -35,6 +36,7 @@ export default function Header() {
     }, 400);
   };
 
+  
   return (
     <header className="bg-white container">
       <nav
@@ -46,7 +48,7 @@ export default function Header() {
             <span className="sr-only">Your Company</span>
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="/assets/mainlogo.png"
               alt=""
             />
           </Link>

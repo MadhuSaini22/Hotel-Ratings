@@ -2,12 +2,10 @@ import Link from "next/link";
 
 const navigation = {
   main: [
-    { name: "About", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Jobs", href: "#" },
-    { name: "Press", href: "#" },
-    { name: "Contact", href: "/contact" },
-    { name: "Partners", href: "#" },
+    { name: "Home", href: "/" },
+   { name: "Hotels", href: "/allData" },
+  { name: "Features", href: "#" },
+  { name: "Contact", href: "/contact" },
   ],
   social: [
     {

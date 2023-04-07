@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { hotelData } from "@/constants";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const product = {
   images: [
     {
-      src: "/assets/hotel.jpg",
+      src: "/assets/royal.jpg",
       alt: "Two each of gray, white, and black shirts laying flat.",
     },
     {
@@ -46,13 +47,13 @@ export default function Detail() {
             className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8"
           >
             <li className="text-sm">
-              <a
-                href={hotel?.link}
+              <Link
+                href={"/allData"}
                 aria-current="page"
                 className="font-medium text-gray-500 hover:text-gray-600"
               >
-                {hotel?.name}
-              </a>
+                Back
+              </Link>
             </li>
           </ol>
         </nav>
@@ -111,24 +112,26 @@ export default function Detail() {
           <div className="lg:col-span-2 lg:border-gray-200 lg:pr-8">
             <h1 className="text-sm font-medium tracking-tight text-gray-900">
               <p className="mb-3">ratings</p>
+
               <div className="flex">
-                { fullStars && [...Array(fullStars)].map((_, index) => (
-                  <svg
-                    key={index}
-                    className="h-5 w-5 text-yellow-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    fill="yellow"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                    />
-                  </svg>
-                ))}
+                {fullStars &&
+                  [...Array(fullStars)].map((_, index) => (
+                    <svg
+                      key={index}
+                      className="h-5 w-5 text-yellow-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      fill="yellow"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                      />
+                    </svg>
+                  ))}
                 {hasHalfStar && (
                   <svg
                     className="h-5 w-5 text-yellow-400"
@@ -166,23 +169,34 @@ export default function Detail() {
                     />
                   </svg>
                 )}
-                {emptyStars && [...Array(emptyStars)].map((_, index) => (
-                  <svg
-                    key={index}
-                    className="h-5 w-5 text-gray-400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
+                {emptyStars &&
+                  [...Array(emptyStars)].map((_, index) => (
+                    <svg
+                      key={index}
+                      className="h-5 w-5 text-gray-400"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                      />
+                    </svg>
+                  ))}
+              </div>
+              <div>
+                <button className="my-8">
+                  <Link
+                    href={`${hotel?.url}`}
+                    className="px-6 text-sm bg-yellow-400 py-3 "
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                    />
-                  </svg>
-                ))}
+                    Get more details
+                  </Link>
+                </button>
               </div>
             </h1>
           </div>
@@ -191,3 +205,4 @@ export default function Detail() {
     </div>
   );
 }
+

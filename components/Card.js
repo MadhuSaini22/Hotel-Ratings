@@ -91,13 +91,15 @@ const Card = ({ hotel }) => {
               </svg>
             ))}
           </div>
-          <div className="text-gray-600 text-sm mb-2">{hotel.description}</div>
+          <div className="text-gray-700 text-medium my-2">{hotel.name}</div>
+
+          <div className="text-gray-600 text-sm my-2">{hotel.description}</div>
           <a
             href={`${hotel.url}`}
             target="_blank"
             className="text-gray-600 text-sm"
           >
-            <div>Have a glimpse</div>
+            <div className="font-semibold underline">Have a glimpse</div>
           </a>
         </div>
       </div>

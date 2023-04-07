@@ -6,7 +6,6 @@ import Card from "./Card";
 import { hotelData } from "@/constants";
 import { Navigation } from "swiper";
 export default function AppSwiper({ data }) {
- 
   return (
     <div className="relative">
       <Swiper
@@ -29,13 +28,16 @@ export default function AppSwiper({ data }) {
         }}
         className="mySwiper"
       >
-        {hotelData.map((hotel) => (
-          <div key={hotel.id}>
-            <SwiperSlide>
-              <Card hotel={hotel} />
-            </SwiperSlide>
-          </div>
-        ))}
+        {hotelData
+          .sort((a, b) => b.ratings - a.ratings)
+          .slice(0, 5)
+          .map((hotel) => (
+            <div key={hotel.id}>
+              <SwiperSlide>
+                <Card hotel={hotel} />
+              </SwiperSlide>
+            </div>
+          ))}
       </Swiper>
     </div>
   );

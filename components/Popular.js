@@ -10,20 +10,11 @@ import AppSwiper from "./AppSwiper";
 import Heading from "./Heading";
 
 export default function Popular() {
-     const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <div>
+    <div className="mb-16">
       <Heading heading={"Top destinations for your next vacation"} />
-
-      <Swiper   
-        slidesPerView={3}
-        spaceBetween={30}
-        navigation={true}
-        modules={[Navigation]}
-        className="mySwiper"
-      >
-        <AppSwiper setActiveIndex={setActiveIndex} />
-      </Swiper>
+      <AppSwiper setActiveIndex={setActiveIndex} />
     </div>
   );
 }
