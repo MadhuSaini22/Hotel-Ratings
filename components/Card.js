@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -16,10 +17,12 @@ const Card = ({ hotel }) => {
       {/* <Link href={`/hotelDetail/${hotel.id}`}> */}
       <div className="bg-white w-[400px] shadow-lg rounded-lg overflow-hidden mx-auto max-w-[500px]">
         <Link href={`/hotel/${hotel.id}`}>
-          <img
+          <Image
             className="w-full h-56 object-cover object-center"
             src="/assets/room.jpg"
             alt="hotel"
+            height={"300"}
+            width={"300"}
           />
         </Link>
 

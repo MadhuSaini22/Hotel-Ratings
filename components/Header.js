@@ -4,6 +4,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ResultCard } from "./ResultCard";
 import Link from "next/link";
 import { hotelData } from "@/constants";
+import FavCard from "./FavCard";
+import Image from "next/image";
 
 const navigation = [
   { name: "Hotels", href: "/allData" },
@@ -16,27 +18,27 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const timeout = useRef();
   const [results, setResults] = useState([]);
-  
+  const [flag, setFlag] = useState(false);
+  const [search, setSearch] = useState("");
   const onChange = (e) => {
+    setSearch(e.target.value);
     e.preventDefault();
     //Clear the previous timeout.
     clearTimeout(timeout.current);
     timeout.current = setTimeout(() => {
-      fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US&page=1&include_adult=false&query=${e.target.value}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.errors) {
-            setResults(data.results.slice(0, 8));
-          } else {
-            setResults([]);
-          }
-        });
+      const data = hotelData.filter((object) => {
+        const nameMatch = object.name
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
+        const descriptionMatch = object.description
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase());
+        return nameMatch || descriptionMatch;
+      });
+      setResults(data);
     }, 400);
   };
 
-  
   return (
     <header className="bg-white container">
       <nav
@@ -46,10 +48,12 @@ export default function Header() {
         <div className="flex">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img
+            <Image
               className="h-8 w-auto"
               src="/assets/mainlogo.png"
               alt=""
+              height={"300"}
+              width={"300"}
             />
           </Link>
         </div>
@@ -62,6 +66,13 @@ export default function Header() {
               className="text-sm focus:border-yellow-400 focus:border-2 px-2 placeholder:text-slate-500 text-black flex-1 w-full rounded h-8 outline-none border bg-right sm:block lg:block md:block"
               placeholder="Search Hotels"
               onChange={onChange}
+              onBlur={() => {
+                setTimeout(() => {
+                  setResults([]);
+                  setSearch("");
+                }, 1000);
+              }}
+              value={search}
             />
 
             <svg
@@ -81,18 +92,22 @@ export default function Header() {
           </div>
           {/* Search Results */}
           <div className="z-10 m-auto absolute ">
-            <div className="bg-dark-lightBlack">
-              {results
-                ? results.length > 0 && (
-                    <div className="">
-                      {results.map((movie) => (
-                        <div key={movie.id}>
-                          <ResultCard movie={movie} />
-                        </div>
-                      ))}
+            <div className="bg-zinc-200 max-h-[550px] overflow-y-scroll">
+              {results.length > 0 && (
+                <div className="">
+                  {results.map((hotel) => (
+                    <div key={hotel.id}>
+                      <Link href={`/hotel/${hotel.id}`}>
+                        <FavCard
+                          hotel={hotel}
+                          setFlag={setFlag}
+                          unFav={false}
+                        />
+                      </Link>
                     </div>
-                  )
-                : ""}
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -130,10 +145,12 @@ export default function Header() {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              <Image
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt=""
+                height={"300"}
+                width={"300"}
               />
             </a>
             <button

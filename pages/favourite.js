@@ -1,4 +1,5 @@
 import FavCard from "@/components/FavCard";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 export default function Favourite() {
@@ -112,26 +113,21 @@ export default function Favourite() {
                             hotel={hotel}
                             key={index}
                             setFlag={setFlag}
+                            unFav={true}
                           />
                         </div>
                       ))}
                   </div>
                 </div>
-                <div className=" text-black col-span-2 px-3  bg-gray-100">
-                  <div className=" pt-3 font-semibold font-sans text-lg ">
-                    Create a new list
-                  </div>
-                  <div className="pt-3  text-xs text-gray-600">
-                    List your hotel, TV & celebrity picks.
-                  </div>
-                  <div className="pt-3 text-dark-forgot  text-xs">
-                    Create a new list
-                  </div>
-                  <div className="mt-4 border-t border-slate-300"></div>
-                  <div className=" text-dark-forgot pt-4 text-xs">
-                    <span className=" text-black font-bold ">Feedback? </span>
-                    Tell us what you think about this feature
-                  </div>
+                <div className=" text-black col-span-2 flex justify-center bg-gray-100">
+                  <Image
+                    src={"/assets/watchlist.jpg"}
+                    height={"300"}
+                    width={"300"}
+                    alt="image"
+                    className="min-w-fit"
+                  ></Image>
+                
                 </div>
               </div>
             </div>

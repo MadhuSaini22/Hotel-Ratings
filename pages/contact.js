@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import SpinnerLoader from "@/components/SpinnerLoader";
 import Toast from "@/components/Toast";
+import Image from "next/image";
 
 export default function GetInTouch() {
   // Use useState to keep track of whether or not to display the spinner loader and toast
@@ -152,9 +153,11 @@ export default function GetInTouch() {
               </div>
 
               <div className="w-[600px] bg-red  shadow-l">
-                <img
+                <Image
                   src="/assets/contact.jpg"
                   alt=""
+                  height={"300"}
+                  width={"300"}
                   className=" h-full w-full"
                 />
               </div>
