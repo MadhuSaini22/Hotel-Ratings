@@ -6,19 +6,19 @@ import { useRouter } from "next/router";
 const product = {
   images: [
     {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg",
+      src: "/assets/hotel.jpg",
       alt: "Two each of gray, white, and black shirts laying flat.",
     },
     {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg",
+      src: "/assets/hotel2.jpg",
       alt: "Model wearing plain black basic tee.",
     },
     {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg",
+      src: "/assets/hotel3.jpg",
       alt: "Model wearing plain gray basic tee.",
     },
     {
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg",
+      src: "/assets/hotel4.jpg",
       alt: "Model wearing plain white basic tee.",
     },
   ],
@@ -30,7 +30,7 @@ export default function Detail() {
   let hotel;
   hotel = hotelData.find((p) => p.id == router.query.hotelId);
 
-  const value = hotel.ratings;
+  const value = hotel?.ratings;
   const maxRating = 5;
   const rating = Math.max(0, Math.min(maxRating, value));
   const fullStars = Math.floor(rating);
@@ -112,7 +112,7 @@ export default function Detail() {
             <h1 className="text-sm font-medium tracking-tight text-gray-900">
               <p className="mb-3">ratings</p>
               <div className="flex">
-                {[...Array(fullStars)].map((_, index) => (
+                { fullStars && [...Array(fullStars)].map((_, index) => (
                   <svg
                     key={index}
                     className="h-5 w-5 text-yellow-400"
@@ -166,7 +166,7 @@ export default function Detail() {
                     />
                   </svg>
                 )}
-                {[...Array(emptyStars)].map((_, index) => (
+                {emptyStars && [...Array(emptyStars)].map((_, index) => (
                   <svg
                     key={index}
                     className="h-5 w-5 text-gray-400"

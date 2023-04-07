@@ -1,10 +1,12 @@
+import Link from "next/link";
+
 const navigation = {
   main: [
     { name: "About", href: "#" },
     { name: "Blog", href: "#" },
     { name: "Jobs", href: "#" },
     { name: "Press", href: "#" },
-    { name: "Accessibility", href: "#" },
+    { name: "Contact", href: "/contact" },
     { name: "Partners", href: "#" },
   ],
   social: [
@@ -82,12 +84,12 @@ export default function Footer() {
         >
           {navigation.main.map((item) => (
             <div key={item.name} className="pb-6">
-              <a
+              <Link
                 href={item.href}
                 className="text-sm leading-6 text-white hover:text-gray-400"
               >
                 {item.name}
-              </a>
+              </Link>
             </div>
           ))}
         </nav>
