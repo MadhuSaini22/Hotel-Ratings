@@ -32,7 +32,7 @@ export default function AppSwiper({ data }) {
           .sort((a, b) => b.ratings - a.ratings)
           .slice(0, 5)
           .map((hotel) => (
-            <SwiperSlide key={hotel.id}>
+            <SwiperSlide className="my-4 h-auto" key={hotel.id}>
               <Card hotel={hotel} />
             </SwiperSlide>
           ))}
